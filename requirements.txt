@@ -1,0 +1,18 @@
+argcomplete==3.6.2
+bitarray==3.3.1
+bitstring==4.3.1
+cffi==1.17.1
+cryptography==44.0.2
+ecdsa==0.19.1
+esptool==4.8.1
+intelhex==2.3.0
+numpy==2.2.4
+opencv-contrib-python==4.11.0.86
+opencv-python==4.11.0.86
+PyBluez @ file:///home/barash/projects/VSOSH_python/pybluez
+pycparser==2.22
+pyserial==3.5
+PyYAML==6.0.2
+reedsolo==1.7.0
+setuptools==78.1.0
+six==1.17.0
