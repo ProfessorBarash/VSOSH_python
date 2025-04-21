@@ -4,27 +4,29 @@ from camera import Camera
 import time
 import os
 
-path = '/home/nto-pc/projects/IRS_final/camera/samples'
+path = '/home/barash/projects/VSOSH_python/camera/samples'
 
-cap = cv2.VideoCapture("http://root:admin@10.128.73.64/mjpg/video.mjpg")
+camera = Camera(0)
+camera.undistort = False
 
 def click(event, x, y, flags, param):
 
 	if event == cv2.EVENT_LBUTTONDOWN:
-		cv2.imwrite(os.path.join(path , f'{time.time()}_{x}{y}.jpg'), cap.read()[1])
+		cv2.imwrite(os.path.join(path , f'{time.time()}_{x}{y}.jpg'), camera.read())
   
 cv2.namedWindow('frame')
 cv2.setMouseCallback('frame',click)
 
+time.sleep(5)
+
 while True:
-    ret, frame = cap.read()
+    frame = camera.read()
     print(frame.shape)
     # shown = cv2.resize(frame, (640, 480))
     
+    cv2.imwrite(os.path.join(path , f'{time.time()}.jpg'), camera.read())
     cv2.imshow("frame", frame)
     
-    cv2.waitKey(1)
-    
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1000) == ord('q'):
         break
     

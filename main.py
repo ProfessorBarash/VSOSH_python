@@ -1,25 +1,29 @@
-import bluetooth
+import cv2
+from camera.camera import Camera
+from camera.robot_detection import ZonesDetection
+from robot.robot_control import Robot
+from robot import robot_algorithms
 
-bd_addr = "5C:01:3B:96:8C:22"  # MAC-адрес устройства ESP32
-port = 1  # обычно для ESP32 и HC-05 используется порт 1
+camera = Camera("/dev/video0", 1, (1920, 1080))
 
-sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+x_target, y_target = 553, 449
+robot = Robot()
+zones_detector = ZonesDetection()
 
-try:
-    print("Подключение к устройству...")
-    sock.connect((bd_addr, port))
-    print("Успешно подключено!")
+def mouse_callback(event, x, y, flags, param):
+    global x_target, y_target
+    if event == cv2.EVENT_LBUTTONDOWN:  # Если нажата ЛКМ
+        print(f"ЛКМ нажата в точке: ({x}, {y})")
+        x_target, y_target = x, y
 
-    while True:
-        message = input("Введите команду (например, 150l): ")
-        if message == "exit":
-            break
-        sock.send(message)
-        print("Отправлено:", message)
+cv2.namedWindow("main frame")
+cv2.setMouseCallback("main frame", mouse_callback)
 
-except bluetooth.btcommon.BluetoothError as err:
-    print("Ошибка подключения:", err)
+# M = cv2.moments(zones_detector.storage_zone[0])
+# cx = int(M['m10']/M['m00'])
+# cy = int(M['m01']/M['m00'])
+# robot_algorithms.deliver_cargo(camera, robot, cx, cy, 3)
+robot_algorithms.deliver_cargo(camera, robot, 117, 82, 3)
 
-finally:
-    sock.close()
-    print("Соединение закрыто.")
+robot.robot_serial.send("l0")
+robot.robot_serial.send("r0")

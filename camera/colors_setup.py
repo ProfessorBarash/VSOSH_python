@@ -14,7 +14,7 @@ cv2.createTrackbar('s_max','color setup',255,255,nothing)
 cv2.createTrackbar('v_min','color setup',0,255,nothing)
 cv2.createTrackbar('v_max','color setup',255,255,nothing)
 
-cap = cv2.VideoCapture("http://root:admin@10.128.73.80/mjpg/video.mjpg")
+cap = cv2.VideoCapture("/dev/video0")
 cap.set(cv2.CAP_PROP_WHITE_BALANCE_BLUE_U, 127)
 cap.set(cv2.CAP_PROP_WHITE_BALANCE_RED_V, 127)
 cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 3) # auto mode

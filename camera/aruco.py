@@ -85,7 +85,7 @@ def find_aruco_corner(frame, goal_cargo):
 
     crnrs = []
 
-    small_cargo_ids = [4, 5, 6, 7, 8, 9, 10, 11]
+    small_cargo_ids = [3, 4, 5, 6, 7, 8, 9, 10]
     if goal_cargo is not None:
         small_cargo_ids.remove(goal_cargo)
 

@@ -64,14 +64,7 @@ class Camera:
             h,  w = frame.shape[:2]
             x, y, w, h = self.roi
             frame = dst[y:y+h, x:x+w]
-            
-            pts_src = np.array([[842, 22], [807, 602], [221, 591], [229, 2]], dtype=np.float32)
-
-            pts_dst = np.array([[0, 0], [w//2, 0], [w//2, h], [0, h]], dtype=np.float32)
-
-            matrix = cv2.getPerspectiveTransform(pts_src, pts_dst)
-
-            frame = cv2.warpPerspective(frame, matrix, (w//2, h))
+            frame = frame[219:542, 551:1067]
             
         return frame
     

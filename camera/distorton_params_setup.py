@@ -9,7 +9,7 @@ objp[:,:2] = np.mgrid[0:8,0:6].T.reshape(-1,2)
 
 objpoints = [] 
 imgpoints = [] 
-images = glob.glob('camera/samples/*')
+images = glob.glob('/home/barash/projects/VSOSH_python/camera/samples/*')
 for fname in images:
     img = cv2.imread(fname)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -33,9 +33,9 @@ file.close()
 
 print(ret, mtx, dist, rvecs, tvecs, sep='\n'+'\n'+'\n')
 
-cap = cv2.VideoCapture("http://root:admin@10.128.73.64/mjpg/video.mjpg")
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 2560)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1440)
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 while True:
     ret, frame = cap.read()
     h,  w = frame.shape[:2]
@@ -47,4 +47,5 @@ while True:
     
     cv2.imshow("dst", dst)
     
-    cv2.waitKey(30)
+    if cv2.waitKey(30) == ord("q"):
+        break
